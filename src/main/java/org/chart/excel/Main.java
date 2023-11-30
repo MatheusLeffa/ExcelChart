@@ -1,7 +1,10 @@
 package org.chart.excel;
 
 import com.aspose.cells.*;
+import com.aspose.cells.Color;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
@@ -9,7 +12,10 @@ public class Main {
 
         String filePath = FileSelector.getFilePath();
         Workbook workbook = new Workbook(filePath);
+
         Worksheet worksheet0 = workbook.getWorksheets().get(0);
+        Worksheet worksheet1 = workbook.getWorksheets().get(1);
+        worksheet1.setName("Gráficos");
 
         // Criar um conjunto para armazenar valores únicos
         Set<String> valoresUnicos = new HashSet<>();
@@ -38,9 +44,6 @@ public class Main {
             ocorrencias.put(valorUnico, contagem);
         }
 
-        Worksheet worksheet1 = workbook.getWorksheets().get(1);
-        worksheet1.setName("Gráficos");
-
         // Adicionar dados do gráfico
         Cells cells = worksheet1.getCells();
         int i = 1;
@@ -52,20 +55,21 @@ public class Main {
 
         // Criar gráfico de colunas
         ChartCollection charts = worksheet1.getCharts();
-        int chartIndex = charts.add(ChartType.COLUMN, 1, 5, 20, 15);
+        int chartIndex = charts.add(ChartType.COLUMN, 1, 5, 15, 15);
         Chart chart = worksheet1.getCharts().get(chartIndex);
-        chart.getTitle().setText("Incidentes");
 
         // Configurar dados do gráfico
         chart.setChartDataRange("A1:B" + ocorrencias.size(), true);
 
-        // Emular o "Estilo 1" do Excel (ajuste de algumas configurações)
+        // Formatação gráfico
+        chart.getTitle().setText("Incidentes");
         chart.getChartArea().getArea().setForegroundColor(Color.getWhite());
         chart.getPlotArea().getArea().setForegroundColor(Color.getWhite());
-        chart.getNSeries().get(0).getArea().setForegroundColor(Color.fromArgb(46,117,182));
+        chart.getNSeries().get(0).getArea().setForegroundColor(Color.fromArgb(46, 117, 182));
         chart.setShowLegend(false);
+        chart.getValueAxis().setMajorUnitScale(1);
 
-
+        // Salvar o arquivo
         try {
             workbook.save("Test_out.xlsx", SaveFormat.XLSX);
         } catch (Exception e) {
