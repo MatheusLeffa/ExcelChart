@@ -1,21 +1,27 @@
 package org.chart.excel;
 
 import com.aspose.cells.*;
-import com.aspose.cells.Color;
 
-import java.awt.*;
-import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
         String filePath = FileSelector.getFilePath();
         Workbook workbook = new Workbook(filePath);
+        WorksheetCollection worksheetCollection = workbook.getWorksheets();
 
-        Worksheet worksheet0 = workbook.getWorksheets().get(0);
-        Worksheet worksheet1 = workbook.getWorksheets().get(1);
-        worksheet1.setName("Gráficos");
+        Worksheet worksheet0 = worksheetCollection.get(0);
+        Worksheet worksheet1;
+
+        if (workbook.getWorksheets().getCount() > 1) {
+            worksheet1 = worksheetCollection.get(1);
+        } else {
+            worksheet1 = worksheetCollection.add("Gráficos");
+        }
 
         // Criar um conjunto para armazenar valores únicos
         Set<String> valoresUnicos = new HashSet<>();
@@ -55,7 +61,7 @@ public class Main {
 
         // Criar gráfico de colunas
         ChartCollection charts = worksheet1.getCharts();
-        int chartIndex = charts.add(ChartType.COLUMN, 1, 5, 15, 15);
+        int chartIndex = charts.add(ChartType.COLUMN, 1, 6, 32, 25);
         Chart chart = worksheet1.getCharts().get(chartIndex);
 
         // Configurar dados do gráfico
