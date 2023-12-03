@@ -16,15 +16,20 @@ public class WorksheetEditor {
         Cells cells = worksheet.getCells();
         int i = 1;
         for (String valorUnico : ocorrencias.keySet()) {
-            cells.get("A" + i).putValue(valorUnico);
-            cells.get("B" + i).putValue(ocorrencias.get(valorUnico));
+            if(cells.isBlankColumn(0)){
+                cells.get("A" + i).putValue(valorUnico);
+                cells.get("B" + i).putValue(ocorrencias.get(valorUnico));
+            } else {
+                cells.get("C" + i).putValue(valorUnico);
+                cells.get("D" + i).putValue(ocorrencias.get(valorUnico));
+            }
             i++;
         }
     }
 
-    public Chart createChart() {
+    public Chart createChart(int upperLeftRow, int upperLeftColumn, int lowerRightRow, int lowerRightColumn) {
         ChartCollection charts = worksheet.getCharts();
-        int chartIndex = charts.add(ChartType.COLUMN, 1, 6, 32, 25);
+        int chartIndex = charts.add(ChartType.COLUMN, upperLeftRow, upperLeftColumn, lowerRightRow, lowerRightColumn);
         return worksheet.getCharts().get(chartIndex);
     }
 
