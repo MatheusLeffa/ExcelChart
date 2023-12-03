@@ -21,8 +21,8 @@ public class Main {
         WorksheetEditor worksheetEditor = new WorksheetEditor(worksheet1);
         worksheetEditor.addValues(dataSeries1);
         worksheetEditor.addValues(dataSeries2);
-        Chart chart1 = worksheetEditor.createChart(1,6,20,20);
-        Chart chart2 = worksheetEditor.createChart(26,6,38,20);
+        Chart chart1 = worksheetEditor.createChart(1, 6, 20, 20);
+        Chart chart2 = worksheetEditor.createChart(26, 6, 38, 20);
 
         // Configurar dados do gráfico
         chart1.setChartDataRange("A1:B" + dataSeries1.size(), true);
@@ -38,6 +38,5 @@ public class Main {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        System.load(System.getProperty("user.home") + "\\OneDrive - Sicredi\\Desktop\\Boletim_out.xlsx");
     }
 }
