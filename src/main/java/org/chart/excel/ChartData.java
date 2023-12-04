@@ -1,5 +1,7 @@
 package org.chart.excel;
 
+import com.aspose.cells.Cells;
+import com.aspose.cells.Range;
 import com.aspose.cells.Worksheet;
 
 import java.util.HashSet;
@@ -9,40 +11,48 @@ import java.util.Set;
 
 public class ChartData {
 
-    private static final Map<String, Integer> ocorrencias = new LinkedHashMap<>();
+    private Map<String, Integer> dataSeries = new LinkedHashMap<>();
 
-    public static Map<String, Integer> getDataSeries(Worksheet worksheet, String coluna) {
+    public Map<String, Integer> getDataSeries(Worksheet worksheet, String coluna) {
 
         Set<String> valoresUnicos = getValoresUnicosSerie(worksheet, coluna);
-        int maxLinhas = getMaxLinhas(worksheet);
+        int maxLinhas = getMaxLinhas(worksheet, worksheet.getCells().get(coluna + 1).getColumn());
 
         for (String valorUnico : valoresUnicos) {
             int contagem = 0;
 
-            for (int i = 2; i <= maxLinhas; i++) {
+            for (int i = 2; i <= maxLinhas + 1; i++) {
                 String valorCelula = worksheet.getCells().get(coluna + i).getStringValue();
                 if (valorUnico.equals(valorCelula)) {
                     contagem++;
                 }
             }
-            ocorrencias.put(valorUnico, contagem);
+            dataSeries.put(valorUnico, contagem);
         }
-        return ocorrencias;
+        return this.dataSeries;
     }
 
     private static Set<String> getValoresUnicosSerie(Worksheet worksheet, String coluna) {
         Set<String> valoresUnicos = new HashSet<>();
 
-        int maxLinhas = getMaxLinhas(worksheet);
+        int maxLinhas = getMaxLinhas(worksheet, worksheet.getCells().get(coluna + 1).getColumn());
 
-        for (int i = 2; i <= maxLinhas; i++) {
+        for (int i = 2; i <= maxLinhas + 1; i++) {
             String valorCelula = worksheet.getCells().get(coluna + i).getStringValue();
             valoresUnicos.add(valorCelula);
         }
         return valoresUnicos;
     }
 
-    private static int getMaxLinhas(Worksheet worksheet) {
-        return worksheet.getCells().getMaxDataRow() + 1;
+    private static int getMaxLinhas(Worksheet worksheet, int columnIndex) {
+        int maxRow = 0;
+        Cells cells = worksheet.getCells();
+
+        for (int row = 0; row < cells.getMaxDataRow() + 1; row++) {
+            if (!cells.get(row, columnIndex).getStringValue().isEmpty()) {
+                maxRow = row;
+            }
+        }
+        return maxRow;
     }
 }
