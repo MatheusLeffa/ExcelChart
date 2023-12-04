@@ -13,7 +13,9 @@ public class Formatter {
         chart.getNSeries().get(0).getArea().setForegroundColor(Color.fromArgb(46, 117, 182));
         chart.setShowLegend(false);
         chart.getValueAxis().setVisible(false);
+        chart.getPlotArea().getBorder().setVisible(false);
         disableGridLines(chart);
+
 
     }
     private static void disableGridLines(Chart chart){
