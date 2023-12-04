@@ -1,7 +1,6 @@
 package org.chart.excel;
 
 import com.aspose.cells.Cells;
-import com.aspose.cells.Range;
 import com.aspose.cells.Worksheet;
 
 import java.util.HashSet;
@@ -11,7 +10,7 @@ import java.util.Set;
 
 public class ChartData {
 
-    private Map<String, Integer> dataSeries = new LinkedHashMap<>();
+    private final Map<String, Integer> dataSeries = new LinkedHashMap<>();
 
     public Map<String, Integer> getDataSeries(Worksheet worksheet, String coluna) {
 

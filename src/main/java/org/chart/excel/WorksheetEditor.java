@@ -40,18 +40,18 @@ public class WorksheetEditor {
         return worksheet.getCharts().get(chartIndex);
     }
 
-    public void sort (Map<String, Integer> dataSeries) {
+    public void sort(Map<String, Integer> dataSeries) {
         DataSorter sorter = workbook.getDataSorter();
         sorter.setKey1(1);
         sorter.setKey2(3);
         sorter.setOrder1(SortOrder.DESCENDING);
         sorter.setOrder2(SortOrder.DESCENDING);
 
-        CellArea cellArea1 = CellArea.createCellArea("A1","B" + dataSeries.size());
-        sorter.sort(worksheet.getCells(),cellArea1);
+        CellArea cellArea1 = CellArea.createCellArea("A1", "B" + dataSeries.size());
+        sorter.sort(worksheet.getCells(), cellArea1);
 
-        CellArea cellArea2 = CellArea.createCellArea("C1","D" + dataSeries.size());
-        sorter.sort(worksheet.getCells(),cellArea2);
+        CellArea cellArea2 = CellArea.createCellArea("C1", "D" + dataSeries.size());
+        sorter.sort(worksheet.getCells(), cellArea2);
     }
 
 }
