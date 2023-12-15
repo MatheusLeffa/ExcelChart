@@ -15,8 +15,7 @@ public class Formatter {
         chart.getValueAxis().setVisible(false);
         chart.getPlotArea().getBorder().setVisible(false);
         disableGridLines(chart);
-
-
+        // Create Data Labels
     }
     private static void disableGridLines(Chart chart){
         Axis valueAxis = chart.getValueAxis();

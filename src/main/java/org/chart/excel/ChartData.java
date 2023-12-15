@@ -14,8 +14,10 @@ public class ChartData {
 
     public Map<String, Integer> getDataSeries(Worksheet worksheet, String coluna) {
 
-        Set<String> valoresUnicos = getValoresUnicosSerie(worksheet, coluna);
-        int maxLinhas = getMaxLinhas(worksheet, worksheet.getCells().get(coluna + 1).getColumn());
+        int indexColuna = worksheet.getCells().get(coluna + 1).getColumn();
+        int maxLinhas = getMaxLinhas(worksheet, indexColuna);
+
+        Set<String> valoresUnicos = getValoresUnicosSerie(worksheet, coluna, maxLinhas);
 
         for (String valorUnico : valoresUnicos) {
             int contagem = 0;
@@ -31,10 +33,8 @@ public class ChartData {
         return this.dataSeries;
     }
 
-    private static Set<String> getValoresUnicosSerie(Worksheet worksheet, String coluna) {
+    private static Set<String> getValoresUnicosSerie(Worksheet worksheet, String coluna, int maxLinhas) {
         Set<String> valoresUnicos = new HashSet<>();
-
-        int maxLinhas = getMaxLinhas(worksheet, worksheet.getCells().get(coluna + 1).getColumn());
 
         for (int i = 2; i <= maxLinhas + 1; i++) {
             String valorCelula = worksheet.getCells().get(coluna + i).getStringValue();

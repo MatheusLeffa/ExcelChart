@@ -15,6 +15,11 @@ public class WorksheetEditor {
         this.worksheet = worksheet;
     }
 
+//    public void sort(Map<String, Integer> dataSeries){
+//
+//    }
+
+
     public void addValues(Map<String, Integer> dataSeries) {
         Cells cells = worksheet.getCells();
         int i = 1;
@@ -34,12 +39,6 @@ public class WorksheetEditor {
         }
     }
 
-    public Chart createChart(int upperLeftRow, int upperLeftColumn, int lowerRightRow, int lowerRightColumn) {
-        ChartCollection charts = worksheet.getCharts();
-        int chartIndex = charts.add(ChartType.COLUMN, upperLeftRow, upperLeftColumn, lowerRightRow, lowerRightColumn);
-        return worksheet.getCharts().get(chartIndex);
-    }
-
     public void sort(Map<String, Integer> dataSeries) {
         DataSorter sorter = workbook.getDataSorter();
         sorter.setKey1(1);
@@ -52,6 +51,12 @@ public class WorksheetEditor {
 
         CellArea cellArea2 = CellArea.createCellArea("C1", "D" + dataSeries.size());
         sorter.sort(worksheet.getCells(), cellArea2);
+    }
+
+    public Chart createChart(int upperLeftRow, int upperLeftColumn, int lowerRightRow, int lowerRightColumn) {
+        ChartCollection charts = worksheet.getCharts();
+        int chartIndex = charts.add(ChartType.COLUMN, upperLeftRow, upperLeftColumn, lowerRightRow, lowerRightColumn);
+        return worksheet.getCharts().get(chartIndex);
     }
 
 }
