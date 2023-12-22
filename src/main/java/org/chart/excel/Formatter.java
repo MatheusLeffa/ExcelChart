@@ -14,9 +14,10 @@ public class Formatter {
         chart.setShowLegend(false);
         chart.getValueAxis().setVisible(false);
         chart.getPlotArea().getBorder().setVisible(false);
+        chart.getNSeries().get(0).getDataLabels().setShowValue(true);
         disableGridLines(chart);
-        // Create Data Labels
     }
+
     private static void disableGridLines(Chart chart){
         Axis valueAxis = chart.getValueAxis();
         Line majorGridLines = valueAxis.getMajorGridLines();
