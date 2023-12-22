@@ -10,12 +10,9 @@ import java.util.Set;
 
 public class ChartData {
 
-    private final Map<String, Integer> dataSeries = new LinkedHashMap<>();
-
-    public Map<String, Integer> getDataSeries(Worksheet worksheet, String coluna) {
-
-        int indexColuna = worksheet.getCells().get(coluna + 1).getColumn();
-        int maxLinhas = getMaxLinhas(worksheet, indexColuna);
+    public static Map<String, Integer> getDataSeries(Worksheet worksheet, String coluna) {
+        Map<String, Integer> dataSeries = new LinkedHashMap<>();
+        int maxLinhas = worksheet.getCells().getMaxDataRow();
 
         Set<String> valoresUnicos = getValoresUnicosSerie(worksheet, coluna, maxLinhas);
 
@@ -30,7 +27,7 @@ public class ChartData {
             }
             dataSeries.put(valorUnico, contagem);
         }
-        return this.dataSeries;
+        return dataSeries;
     }
 
     private static Set<String> getValoresUnicosSerie(Worksheet worksheet, String coluna, int maxLinhas) {
@@ -41,17 +38,5 @@ public class ChartData {
             valoresUnicos.add(valorCelula);
         }
         return valoresUnicos;
-    }
-
-    private static int getMaxLinhas(Worksheet worksheet, int columnIndex) {
-        int maxRow = 0;
-        Cells cells = worksheet.getCells();
-
-        for (int row = 0; row < cells.getMaxDataRow() + 1; row++) {
-            if (!cells.get(row, columnIndex).getStringValue().isEmpty()) {
-                maxRow = row;
-            }
-        }
-        return maxRow;
     }
 }
