@@ -2,6 +2,7 @@ package org.chart.excel;
 
 import com.aspose.cells.*;
 
+import java.io.File;
 import java.util.Map;
 
 public class Main {
@@ -36,14 +37,15 @@ public class Main {
 
         try {
             workbook.save("Boletim_out.xlsx", SaveFormat.XLSX);
+            java.awt.Desktop.getDesktop().open(new File("Boletim_out.xlsx"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static int colunaSize(Map<String, Integer> coluna){
-        if (coluna.size() <= 1){
-            return 1;
+    public static int colunaSize(Map<String, Integer> coluna) {
+        if (coluna.size() <= 1) {
+            return 2;
         }
         return coluna.size();
     }
