@@ -15,21 +15,18 @@ public class Main {
         Worksheet tabelaBoletim = worksheetCollection.get(0);
         Worksheet tabelaGraficos = worksheetCollection.add("Gráficos");
 
-        Map<String, Integer> colunaSistema = ChartData.getDataSeries(tabelaBoletim, "G");
-        Map<String, Integer> colunaStatus = ChartData.getDataSeries(tabelaBoletim, "N");
+        ChartData colunaSistema = new ChartData(workbook,tabelaBoletim,"G");
+        ChartData colunaStatus = new ChartData(workbook,tabelaBoletim,"N");
 
         WorksheetEditor EditorTabelaGraficos = new WorksheetEditor(workbook, tabelaGraficos);
-
-        EditorTabelaGraficos.addValues(colunaSistema);
-        EditorTabelaGraficos.addValues(colunaStatus);
-        EditorTabelaGraficos.sort(colunaSistema);
-        EditorTabelaGraficos.sort(colunaStatus);
+        EditorTabelaGraficos.addValues(colunaSistema.getDataSeries());
+        EditorTabelaGraficos.addValues(colunaStatus.getDataSeries());
 
         Chart graficoSistema = EditorTabelaGraficos.createChart(1, 4, 20, 20);
         Chart graficoStatus = EditorTabelaGraficos.createChart(22, 4, 38, 18);
 
-        graficoSistema.setChartDataRange("A1:B" + colunaSize(colunaSistema), true);
-        graficoStatus.setChartDataRange("C1:D" + colunaSize(colunaStatus), true);
+        graficoSistema.setChartDataRange("A1:B" + colunaSize(colunaSistema.getDataSeries()), true);
+        graficoStatus.setChartDataRange("C1:D" + colunaSize(colunaStatus.getDataSeries()), true);
 
         Formatter.chartFormatter(graficoSistema, "Sistema");
         Formatter.chartFormatter(graficoStatus, "Status");

@@ -1,36 +1,44 @@
 package org.chart.excel;
 
 import com.aspose.cells.Cells;
+import com.aspose.cells.Workbook;
 import com.aspose.cells.Worksheet;
 
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class ChartData {
+public class ChartData extends Data {
+    private Map<String, Integer> dataSeries = new LinkedHashMap<>();
+    private Integer maxLinhas = super.worksheet.getCells().getMaxDataRow();
 
-    public static Map<String, Integer> getDataSeries(Worksheet worksheet, String coluna) {
-        Map<String, Integer> dataSeries = new LinkedHashMap<>();
-        int maxLinhas = worksheet.getCells().getMaxDataRow();
 
-        Set<String> valoresUnicos = getValoresUnicosSerie(worksheet, coluna, maxLinhas);
+    public ChartData(Workbook workbook, Worksheet worksheet, String coluna) {
+        super(workbook, worksheet, coluna);
+        this.dataSeries = setDataSeries();
+    }
+
+    private Map<String, Integer> setDataSeries() {
+        selectDataSeries();
+        return sort(dataSeries);
+    }
+
+    private void selectDataSeries() {
+        Set<String> valoresUnicos = getValoresUnicos();
 
         for (String valorUnico : valoresUnicos) {
             int contagem = 0;
 
-            for (int i = 2; i <= maxLinhas + 1; i++) {
-                String valorCelula = worksheet.getCells().get(coluna + i).getStringValue();
+            for (int i = 2; i <= this.maxLinhas + 1; i++) {
+                String valorCelula = super.worksheet.getCells().get(super.coluna + i).getStringValue();
                 if (valorUnico.equals(valorCelula)) {
                     contagem++;
                 }
             }
             dataSeries.put(valorUnico, contagem);
         }
-        return dataSeries;
     }
 
-    private static Set<String> getValoresUnicosSerie(Worksheet worksheet, String coluna, int maxLinhas) {
+    private Set<String> getValoresUnicos() {
         Set<String> valoresUnicos = new HashSet<>();
 
         for (int i = 2; i <= maxLinhas + 1; i++) {
@@ -39,4 +47,20 @@ public class ChartData {
         }
         return valoresUnicos;
     }
+
+
+    private Map<String, Integer> sort(Map<String, Integer> dataSeries) {
+        return dataSeries.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+    }
+
+    public Map<String, Integer> getDataSeries() {
+        return dataSeries;
+    }
+
 }
