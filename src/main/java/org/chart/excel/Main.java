@@ -15,8 +15,8 @@ public class Main {
         Worksheet tabelaBoletim = worksheetCollection.get(0);
         Worksheet tabelaGraficos = worksheetCollection.add("Gráficos");
 
-        ChartData colunaSistema = new ChartData(workbook,tabelaBoletim,"G");
-        ChartData colunaStatus = new ChartData(workbook,tabelaBoletim,"N");
+        ChartData colunaSistema = new ChartData(workbook, tabelaBoletim, "G");
+        ChartData colunaStatus = new ChartData(workbook, tabelaBoletim, "N");
 
         WorksheetEditor EditorTabelaGraficos = new WorksheetEditor(workbook, tabelaGraficos);
         EditorTabelaGraficos.addValues(colunaSistema.getDataSeries());
@@ -28,12 +28,12 @@ public class Main {
         graficoSistema.setChartDataRange("A1:B" + colunaSize(colunaSistema.getDataSeries()), true);
         graficoStatus.setChartDataRange("C1:D" + colunaSize(colunaStatus.getDataSeries()), true);
 
-        Formatter.chartFormatter(graficoSistema, "Sistema");
-        Formatter.chartFormatter(graficoStatus, "Status");
+        ChartFormatter.chartFormatter(graficoSistema, "Sistema");
+        ChartFormatter.chartFormatter(graficoStatus, "Status");
 
         try {
-            workbook.save(System.getProperty("user.home") + "\\OneDrive - Sicredi\\Desktop\\Boletim_out.xlsx", SaveFormat.XLSX);
-            java.awt.Desktop.getDesktop().open(new File(System.getProperty("user.home") + "\\OneDrive - Sicredi\\Desktop\\Boletim_out.xlsx"));
+            workbook.save("Boletim_out.xlsx", SaveFormat.XLSX);
+            java.awt.Desktop.getDesktop().open(new File("Boletim_out.xlsx"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

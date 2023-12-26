@@ -2,7 +2,7 @@ package org.chart.excel;
 
 import com.aspose.cells.*;
 
-public class Formatter {
+public class ChartFormatter {
 
     public static void chartFormatter(Chart chart, String title) {
         chart.getTitle().setText(title);
@@ -18,7 +18,7 @@ public class Formatter {
         disableGridLines(chart);
     }
 
-    private static void disableGridLines(Chart chart){
+    private static void disableGridLines(Chart chart) {
         Axis valueAxis = chart.getValueAxis();
         Line majorGridLines = valueAxis.getMajorGridLines();
         majorGridLines.setVisible(false);

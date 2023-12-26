@@ -1,13 +1,15 @@
 package org.chart.excel;
 
-import com.aspose.cells.Cells;
 import com.aspose.cells.Workbook;
 import com.aspose.cells.Worksheet;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ChartData extends Data {
+public class ChartData extends WorksheetData {
     private Map<String, Integer> dataSeries = new LinkedHashMap<>();
     private Integer maxLinhas = super.worksheet.getCells().getMaxDataRow();
 
