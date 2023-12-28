@@ -10,18 +10,19 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ChartData extends WorksheetData {
-    private Map<String, Integer> dataSeries = new LinkedHashMap<>();
+    private Map<String, Integer> dataSeries;
     private Integer maxLinhas = super.worksheet.getCells().getMaxDataRow();
 
 
     public ChartData(Workbook workbook, Worksheet worksheet, String coluna) {
         super(workbook, worksheet, coluna);
-        this.dataSeries = setDataSeries();
+        this.dataSeries = new LinkedHashMap<>();
+        setDataSeries();
     }
 
-    private Map<String, Integer> setDataSeries() {
+    private void setDataSeries() {
         selectDataSeries();
-        return sort(dataSeries);
+        this.dataSeries = sort(dataSeries);
     }
 
     private void selectDataSeries() {
