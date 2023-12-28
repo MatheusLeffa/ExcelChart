@@ -11,21 +11,17 @@ import java.util.stream.Collectors;
 
 public class ChartData extends WorksheetData {
     private Map<String, Integer> dataSeries;
-    private Integer maxLinhas = super.worksheet.getCells().getMaxDataRow();
+    private final Integer maxLinhas = super.worksheet.getCells().getMaxDataRow();
 
 
     public ChartData(Workbook workbook, Worksheet worksheet, String coluna) {
         super(workbook, worksheet, coluna);
         this.dataSeries = new LinkedHashMap<>();
         setDataSeries();
+        sortDataSeries();
     }
 
     private void setDataSeries() {
-        selectDataSeries();
-        this.dataSeries = sort(dataSeries);
-    }
-
-    private void selectDataSeries() {
         Set<String> valoresUnicos = getValoresUnicos();
 
         for (String valorUnico : valoresUnicos) {
@@ -52,8 +48,8 @@ public class ChartData extends WorksheetData {
     }
 
 
-    private Map<String, Integer> sort(Map<String, Integer> dataSeries) {
-        return dataSeries.entrySet()
+    private void sortDataSeries() {
+        this.dataSeries = dataSeries.entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .collect(Collectors.toMap(

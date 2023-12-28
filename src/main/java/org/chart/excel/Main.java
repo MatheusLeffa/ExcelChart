@@ -25,12 +25,9 @@ public class Main {
         Chart graficoSistema = EditorTabelaGraficos.createChart(1, 4, 20, 20);
         Chart graficoStatus = EditorTabelaGraficos.createChart(22, 4, 38, 18);
 
-        try{
-            graficoSistema.setChartDataRange("A1:B" + colunaSize(colunaSistema.getDataSeries()), true);
-            graficoStatus.setChartDataRange("C1:D" + colunaSize(colunaStatus.getDataSeries()), true);
-        } catch (Exception e){
-            System.err.println(e);
-        }
+        graficoSistema.setChartDataRange("A1:B" + colunaSize(colunaSistema.getDataSeries()), true);
+        graficoStatus.setChartDataRange("C1:D" + colunaSize(colunaStatus.getDataSeries()), true);
+
 
 
         ChartFormatter.chartFormatter(graficoSistema, "Sistema");
