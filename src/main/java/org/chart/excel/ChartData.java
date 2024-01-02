@@ -62,4 +62,11 @@ public class ChartData extends WorksheetData {
         return dataSeries;
     }
 
+    public int getColunaSize() {
+        if (dataSeries.size() <= 1) {
+            return 2;
+        }
+        return dataSeries.size();
+    }
+
 }
