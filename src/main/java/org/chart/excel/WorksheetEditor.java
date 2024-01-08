@@ -11,34 +11,41 @@ public class WorksheetEditor {
 
     Workbook workbook;
     Worksheet worksheet;
+    Cells cells;
+    ChartCollection charts;
 
 
     public WorksheetEditor(Workbook workbook, Worksheet worksheet) {
         this.workbook = workbook;
         this.worksheet = worksheet;
+        this.cells = worksheet.getCells();
+        this.charts = worksheet.getCharts();
     }
 
+
     public void addValues(Map<String, Integer> dataSeries) {
-        Cells cells = worksheet.getCells();
-        int i = 1;
 
         if (cells.isBlankColumn(0)) {
-            for (String data : dataSeries.keySet()) {
-                cells.get("A" + i).putValue(data);
-                cells.get("B" + i).putValue(dataSeries.get(data));
-                i++;
-            }
+            putColumnValues(dataSeries, "A", "B", "Produto/Sistema");
         } else {
-            for (String data : dataSeries.keySet()) {
-                cells.get("C" + i).putValue(data);
-                cells.get("D" + i).putValue(dataSeries.get(data));
-                i++;
-            }
+            putColumnValues(dataSeries, "C", "D", "Status");
+        }
+    }
+
+    private void putColumnValues(Map<String, Integer> dataSeries, String firstColumn, String secondColumn, String columnTitle) {
+        int i = 2;
+
+        cells.get(firstColumn + "1").putValue(columnTitle);
+        cells.get(secondColumn + "1").putValue("Cont");
+
+        for (String data : dataSeries.keySet()) {
+            cells.get(firstColumn + i).putValue(data);
+            cells.get(secondColumn + i).putValue(dataSeries.get(data));
+            i++;
         }
     }
 
     public Chart createChart(int upperLeftRow, int upperLeftColumn, int lowerRightRow, int lowerRightColumn) {
-        ChartCollection charts = worksheet.getCharts();
         int chartIndex = charts.add(ChartType.COLUMN, upperLeftRow, upperLeftColumn, lowerRightRow, lowerRightColumn);
         return worksheet.getCharts().get(chartIndex);
     }

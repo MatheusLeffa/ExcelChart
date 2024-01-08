@@ -24,8 +24,8 @@ public class Main {
         Chart graficoSistema = EditorTabelaGraficos.createChart(1, 4, 20, 20);
         Chart graficoStatus = EditorTabelaGraficos.createChart(22, 4, 38, 18);
 
-        graficoSistema.setChartDataRange("A1:B" + (colunaSistema.getColunaSize()), true);
-        graficoStatus.setChartDataRange("C1:D" + (colunaStatus.getColunaSize()), true);
+        graficoSistema.setChartDataRange("A1:B" + (colunaSistema.getColumnSize()), true);
+        graficoStatus.setChartDataRange("C1:D" + (colunaStatus.getColumnSize()), true);
 
         ChartFormatter.chartFormatter(graficoSistema, "Sistema");
         ChartFormatter.chartFormatter(graficoStatus, "Status");
