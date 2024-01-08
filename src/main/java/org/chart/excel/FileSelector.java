@@ -16,6 +16,7 @@ public class FileSelector {
             FileNameExtensionFilter filter = new FileNameExtensionFilter("xlsx", "xlsx");
             chooser.setFileFilter(filter);
             int returnVal = chooser.showOpenDialog(null);
+
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 return chooser;
             } else {
