@@ -28,7 +28,7 @@ public class ChartData extends WorksheetData {
             int contagem = 0;
 
             for (int i = 2; i <= this.maxLinhas + 1; i++) {
-                String valorCelula = super.worksheet.getCells().get(super.coluna + i).getStringValue();
+                String valorCelula = super.worksheet.getCells().get(super.coluna + i).getStringValue().toUpperCase();
                 if (valorUnico.equals(valorCelula)) {
                     contagem++;
                 }
@@ -41,7 +41,7 @@ public class ChartData extends WorksheetData {
         Set<String> valoresUnicos = new HashSet<>();
 
         for (int i = 2; i <= maxLinhas + 1; i++) {
-            String valorCelula = worksheet.getCells().get(coluna + i).getStringValue();
+            String valorCelula = worksheet.getCells().get(coluna + i).getStringValue().toUpperCase();
             valoresUnicos.add(valorCelula);
         }
         return valoresUnicos;
