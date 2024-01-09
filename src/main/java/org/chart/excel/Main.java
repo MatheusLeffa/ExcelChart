@@ -2,6 +2,9 @@ package org.chart.excel;
 
 import com.aspose.cells.*;
 import org.chart.excel.utils.FileSelector;
+import org.chart.excel.worksheet.WorksheetEditor;
+import org.chart.excel.worksheet.chart.ChartData;
+import org.chart.excel.worksheet.chart.ChartFormatter;
 
 import java.io.File;
 
@@ -15,10 +18,10 @@ public class Main {
         Worksheet tabelaBoletim = worksheetCollection.get(0);
         Worksheet tabelaGraficos = worksheetCollection.add("Gráficos");
 
-        ChartData colunaSistema = new ChartData(workbook, tabelaBoletim, "G");
-        ChartData colunaStatus = new ChartData(workbook, tabelaBoletim, "N");
+        ChartData colunaSistema = new ChartData(workbook, tabelaBoletim, "Produto/Sistema");
+        ChartData colunaStatus = new ChartData(workbook, tabelaBoletim, "Status");
 
-        WorksheetEditor EditorTabelaGraficos = new WorksheetEditor(workbook, tabelaGraficos);
+        WorksheetEditor EditorTabelaGraficos = new WorksheetEditor(tabelaGraficos);
         EditorTabelaGraficos.addValues(colunaSistema.getDataSeries());
         EditorTabelaGraficos.addValues(colunaStatus.getDataSeries());
 

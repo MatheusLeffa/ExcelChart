@@ -1,4 +1,4 @@
-package org.chart.excel;
+package org.chart.excel.worksheet;
 
 import com.aspose.cells.*;
 
@@ -9,14 +9,12 @@ import java.util.stream.Collectors;
 
 public class WorksheetEditor {
 
-    Workbook workbook;
-    Worksheet worksheet;
-    Cells cells;
-    ChartCollection charts;
+    private final Worksheet worksheet;
+    private final Cells cells;
+    private final ChartCollection charts;
 
 
-    public WorksheetEditor(Workbook workbook, Worksheet worksheet) {
-        this.workbook = workbook;
+    public WorksheetEditor(Worksheet worksheet) {
         this.worksheet = worksheet;
         this.cells = worksheet.getCells();
         this.charts = worksheet.getCharts();
