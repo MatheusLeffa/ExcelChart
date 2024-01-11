@@ -23,8 +23,7 @@ public class FileSelector {
                 throw new RuntimeException("The file selection was canceled.");
             }
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
-
 }

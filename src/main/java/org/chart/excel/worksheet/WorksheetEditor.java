@@ -2,10 +2,7 @@ package org.chart.excel.worksheet;
 
 import com.aspose.cells.*;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class WorksheetEditor {
 
@@ -24,16 +21,16 @@ public class WorksheetEditor {
     public void addValues(Map<String, Integer> dataSeries) {
 
         if (cells.isBlankColumn(0)) {
-            putColumnValues(dataSeries, "A", "B", "Produto/Sistema");
+            putValuesInColumns(dataSeries, "A", "B", "Produto/Sistema");
         } else {
-            putColumnValues(dataSeries, "C", "D", "Status");
+            putValuesInColumns(dataSeries, "C", "D", "Status");
         }
     }
 
-    private void putColumnValues(Map<String, Integer> dataSeries, String firstColumn, String secondColumn, String columnTitle) {
+    private void putValuesInColumns(Map<String, Integer> dataSeries, String firstColumn, String secondColumn, String firstColumnTitle) {
         int i = 2;
 
-        cells.get(firstColumn + "1").putValue(columnTitle);
+        cells.get(firstColumn + "1").putValue(firstColumnTitle);
         cells.get(secondColumn + "1").putValue("Cont");
 
         for (String data : dataSeries.keySet()) {
