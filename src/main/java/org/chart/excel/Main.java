@@ -6,6 +6,7 @@ import org.chart.excel.worksheet.WorksheetEditor;
 import org.chart.excel.worksheet.chart.ChartData;
 import org.chart.excel.worksheet.chart.ChartFormatter;
 
+import javax.swing.*;
 import java.io.File;
 
 public class Main {
@@ -36,9 +37,13 @@ public class Main {
 
         try {
             workbook.save("Boletim_out.xlsx", SaveFormat.XLSX);
-            java.awt.Desktop.getDesktop().open(new File("Boletim_out.xlsx"));
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,
+                    "O arquivo Boletim_out.xlsx está aberto em outro programa!",
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
+        java.awt.Desktop.getDesktop().open(new File("Boletim_out.xlsx"));
     }
 }
