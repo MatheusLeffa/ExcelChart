@@ -38,10 +38,7 @@ public class Main {
         try {
             workbook.save("Boletim_out.xlsx", SaveFormat.XLSX);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,
-                    "O arquivo Boletim_out.xlsx está aberto em outro programa!",
-                    "Erro",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"O arquivo 'Boletim_out.xlsx' está aberto em outro programa!","Erro", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
         java.awt.Desktop.getDesktop().open(new File("Boletim_out.xlsx"));

@@ -4,6 +4,8 @@ import com.aspose.cells.CellsHelper;
 import com.aspose.cells.Workbook;
 import com.aspose.cells.Worksheet;
 
+import javax.swing.*;
+
 public abstract class WorksheetData {
 
     protected Workbook workbook;
@@ -25,6 +27,7 @@ public abstract class WorksheetData {
                 return CellsHelper.columnIndexToName(i);
             }
         }
+        JOptionPane.showMessageDialog(null,"A coluna '" + coluna + "' não foi localizada!","Erro", JOptionPane.ERROR_MESSAGE);
         throw new RuntimeException("A coluna '" + coluna + "' não foi localizada!");
     }
 }
