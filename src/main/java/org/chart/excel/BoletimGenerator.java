@@ -1,7 +1,6 @@
 package org.chart.excel;
 
 import com.aspose.cells.*;
-import org.chart.excel.utils.FileSelector;
 import org.chart.excel.worksheet.WorksheetEditor;
 import org.chart.excel.worksheet.chart.ChartData;
 import org.chart.excel.worksheet.chart.ChartFormatter;
@@ -9,10 +8,20 @@ import org.chart.excel.worksheet.chart.ChartFormatter;
 import javax.swing.*;
 import java.io.File;
 
-public class Main {
-    public static void main(String[] args) throws Exception {
+public class BoletimGenerator {
+    
+    String filePath;
+    
+    
+    public BoletimGenerator(){
+    }
+    
+    public void setFilePath(String filePath){
+        this.filePath = filePath;
+    }
+    
+    public void generate() throws Exception {
 
-        String filePath = FileSelector.getFilePath();
         Workbook workbook = new Workbook(filePath);
 
         WorksheetCollection worksheetCollection = workbook.getWorksheets();
