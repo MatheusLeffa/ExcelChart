@@ -1,17 +1,17 @@
-package org.chart.excel.worksheet;
+package org.chart.excel.utils;
 
 import com.aspose.cells.*;
 
 import java.util.Map;
 
-public class ChartWorksheetEditor {
+public class ChartEditor {
 
     private final Worksheet worksheet;
     private final Cells cells;
     private final ChartCollection charts;
 
 
-    public ChartWorksheetEditor(Worksheet worksheet) {
+    public ChartEditor(Worksheet worksheet) {
         this.worksheet = worksheet;
         this.cells = worksheet.getCells();
         this.charts = worksheet.getCharts();

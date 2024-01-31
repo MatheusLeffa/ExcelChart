@@ -1,14 +1,14 @@
-package org.chart.excel.worksheet.data;
+package org.chart.excel.data;
 
 import com.aspose.cells.Workbook;
 import com.aspose.cells.Worksheet;
 
-public class WorksheetData extends ExcelData {
+public class WorksheetData{
 
+    protected Workbook workbook;
     protected Worksheet worksheet;
-
     public WorksheetData(Workbook workbook, Worksheet worksheet) {
-        super(workbook);
+        this.workbook = workbook;
         this.worksheet = worksheet;
     }
 

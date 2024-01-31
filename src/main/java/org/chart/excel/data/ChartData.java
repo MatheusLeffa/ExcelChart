@@ -1,4 +1,4 @@
-package org.chart.excel.worksheet.data;
+package org.chart.excel.data;
 
 import com.aspose.cells.CellsHelper;
 import com.aspose.cells.Workbook;

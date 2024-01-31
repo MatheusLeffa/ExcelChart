@@ -2,9 +2,9 @@ package org.chart.excel;
 
 import com.aspose.cells.*;
 import org.chart.excel.utils.ChartFormatter;
-import org.chart.excel.worksheet.ChartWorksheetEditor;
-import org.chart.excel.worksheet.data.BoletimData;
-import org.chart.excel.worksheet.data.ChartData;
+import org.chart.excel.utils.ChartEditor;
+import org.chart.excel.data.BoletimData;
+import org.chart.excel.data.ChartData;
 
 import javax.swing.*;
 import java.io.File;
@@ -54,7 +54,7 @@ public class BoletimGenerator {
         ChartData colunaSistema = new ChartData(workbook, tabelaBoletimOrigem, "Produto/Sistema");
         ChartData colunaStatus = new ChartData(workbook, tabelaBoletimOrigem, "Status");
 
-        ChartWorksheetEditor EditorTabelaGraficos = new ChartWorksheetEditor(tabelaGraficos);
+        ChartEditor EditorTabelaGraficos = new ChartEditor(tabelaGraficos);
         EditorTabelaGraficos.addValues(colunaSistema.getDataSeries());
         EditorTabelaGraficos.addValues(colunaStatus.getDataSeries());
 

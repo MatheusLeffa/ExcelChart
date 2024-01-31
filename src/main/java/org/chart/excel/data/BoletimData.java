@@ -1,4 +1,4 @@
-package org.chart.excel.worksheet.data;
+package org.chart.excel.data;
 
 import com.aspose.cells.CellsHelper;
 import com.aspose.cells.Workbook;
@@ -6,16 +6,13 @@ import com.aspose.cells.Worksheet;
 
 import javax.swing.*;
 
-public class BoletimData {
-    Workbook workbook;
-    Worksheet worksheet;
+public class BoletimData extends WorksheetData {
     String coluna;
     int colunaIndex;
 
 
     public BoletimData(Workbook workbook, Worksheet worksheet) {
-        this.workbook = workbook;
-        this.worksheet = worksheet;
+        super(workbook, worksheet);
     }
 
     public void setColuna(String coluna) {
