@@ -1,37 +1,60 @@
 package org.chart.excel;
 
 import com.aspose.cells.*;
-import org.chart.excel.worksheet.WorksheetEditor;
-import org.chart.excel.worksheet.chart.ChartData;
-import org.chart.excel.worksheet.chart.ChartFormatter;
+import org.chart.excel.utils.ChartFormatter;
+import org.chart.excel.worksheet.ChartWorksheetEditor;
+import org.chart.excel.worksheet.data.BoletimData;
+import org.chart.excel.worksheet.data.ChartData;
 
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 
 public class BoletimGenerator {
-    
-    String filePath;
-    
-    
-    public BoletimGenerator(){
-    }
-    
-    public void setFilePath(String filePath){
+    private String filePath;
+    private String seguradora;
+    private final LoadOptions loadOptions = setLoadOptions();
+
+    public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-    
-    public void generate() throws Exception {
 
-        Workbook workbook = new Workbook(filePath);
+    public void setSeguradora(String seguradora) {
+        this.seguradora = seguradora;
+    }
 
+    public void generateBoletim() {
+
+        Workbook workbook = setWorkbook(filePath, loadOptions);
         WorksheetCollection worksheetCollection = workbook.getWorksheets();
         Worksheet tabelaBoletim = worksheetCollection.get(0);
         Worksheet tabelaGraficos = worksheetCollection.add("Gráficos");
 
-        ChartData colunaSistema = new ChartData(workbook, tabelaBoletim, "Produto/Sistema");
-        ChartData colunaStatus = new ChartData(workbook, tabelaBoletim, "Status");
+        filterBoletim(workbook, tabelaBoletim, seguradora);
+        chartCreator(workbook, tabelaBoletim, tabelaGraficos);
 
-        WorksheetEditor EditorTabelaGraficos = new WorksheetEditor(tabelaGraficos);
+        saveAndOpenWorkbook(workbook);
+    }
+
+    private static LoadOptions setLoadOptions() {
+        LoadOptions loadOptions = new LoadOptions(LoadFormat.XLSX);
+        loadOptions.setLoadFilter(new LoadFilter(LoadDataFilterOptions.CELL_DATA));
+        return loadOptions;
+    }
+
+    private static Workbook setWorkbook(String filePath, LoadOptions loadOptions) {
+        try {
+            return new Workbook(filePath, loadOptions);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void chartCreator(Workbook workbook, Worksheet tabelaBoletimOrigem, Worksheet tabelaGraficos) {
+        ChartData colunaSistema = new ChartData(workbook, tabelaBoletimOrigem, "Produto/Sistema");
+        ChartData colunaStatus = new ChartData(workbook, tabelaBoletimOrigem, "Status");
+
+        ChartWorksheetEditor EditorTabelaGraficos = new ChartWorksheetEditor(tabelaGraficos);
         EditorTabelaGraficos.addValues(colunaSistema.getDataSeries());
         EditorTabelaGraficos.addValues(colunaStatus.getDataSeries());
 
@@ -43,13 +66,31 @@ public class BoletimGenerator {
 
         ChartFormatter.chartFormatter(graficoSistema, "Sistema");
         ChartFormatter.chartFormatter(graficoStatus, "Status");
+    }
 
+    private static void saveAndOpenWorkbook(Workbook workbook) {
         try {
             workbook.save("Boletim_out.xlsx", SaveFormat.XLSX);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"O arquivo 'Boletim_out.xlsx' está aberto em outro programa!","Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "O arquivo 'Boletim_out.xlsx' está aberto em outro programa!", "Erro", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
-        java.awt.Desktop.getDesktop().open(new File("Boletim_out.xlsx"));
+        try {
+            java.awt.Desktop.getDesktop().open(new File("Boletim_out.xlsx"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    private static void filterBoletim(Workbook workbook, Worksheet tabelaBoletimOrigem, String seguradora) {
+        String[] statusToRemove = {"Finalizado", "Solucionado", "Fechado"};
+        String[] colunasToRemove = {"Data conclusão", "Hora conclusão", "Criticidade", "Crítico / Impactante"};
+
+
+        BoletimData boletimData = new BoletimData(workbook, tabelaBoletimOrigem);
+        boletimData.deleteRowByStatus("Status", statusToRemove);
+        boletimData.deleteRowBySeguradora("Responsável pelo Ajuste", seguradora);
+        boletimData.deleteColumns(colunasToRemove);
+    }
+
 }

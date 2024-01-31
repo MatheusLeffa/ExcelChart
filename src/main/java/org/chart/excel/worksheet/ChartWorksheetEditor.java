@@ -4,14 +4,14 @@ import com.aspose.cells.*;
 
 import java.util.Map;
 
-public class WorksheetEditor {
+public class ChartWorksheetEditor {
 
     private final Worksheet worksheet;
     private final Cells cells;
     private final ChartCollection charts;
 
 
-    public WorksheetEditor(Worksheet worksheet) {
+    public ChartWorksheetEditor(Worksheet worksheet) {
         this.worksheet = worksheet;
         this.cells = worksheet.getCells();
         this.charts = worksheet.getCharts();
