@@ -1,6 +1,9 @@
-package org.chart.excel.worksheet.chart;
+package org.chart.excel.utils;
 
-import com.aspose.cells.*;
+import com.aspose.cells.Axis;
+import com.aspose.cells.Chart;
+import com.aspose.cells.Color;
+import com.aspose.cells.Line;
 
 public class ChartFormatter {
 
