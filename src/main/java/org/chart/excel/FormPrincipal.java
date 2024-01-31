@@ -13,9 +13,9 @@ import javax.swing.*;
  */
 public class FormPrincipal extends javax.swing.JFrame {
 
-    BoletimGenerator boletimGenerator = new BoletimGenerator();
-    String filePath;
-    String seguradora;
+    private final BoletimGenerator boletimGenerator = new BoletimGenerator();
+    private String filePath;
+    private String seguradora;
 
     /**
      * Creates new form formPrincipal

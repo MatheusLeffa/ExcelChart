@@ -2,7 +2,6 @@ package org.chart.excel;
 
 import com.aspose.cells.*;
 import org.chart.excel.utils.ChartFormatter;
-import org.chart.excel.utils.ChartEditor;
 import org.chart.excel.data.BoletimData;
 import org.chart.excel.data.ChartData;
 
@@ -18,7 +17,6 @@ public class BoletimGenerator {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-
     public void setSeguradora(String seguradora) {
         this.seguradora = seguradora;
     }
@@ -32,8 +30,8 @@ public class BoletimGenerator {
 
         filterBoletim(workbook, tabelaBoletim, seguradora);
         chartCreator(workbook, tabelaBoletim, tabelaGraficos);
-
-        saveAndOpenWorkbook(workbook);
+        saveWorkbookFile(workbook);
+        openWorkbookFile();
     }
 
     private LoadOptions setLoadOptions() {
@@ -41,7 +39,6 @@ public class BoletimGenerator {
         loadOptions.setLoadFilter(new LoadFilter(LoadDataFilterOptions.CELL_DATA));
         return loadOptions;
     }
-
     private Workbook setWorkbook(String filePath, LoadOptions loadOptions) {
         try {
             return new Workbook(filePath, loadOptions);
@@ -49,7 +46,6 @@ public class BoletimGenerator {
             throw new RuntimeException(e);
         }
     }
-
     private void chartCreator(Workbook workbook, Worksheet tabelaBoletimOrigem, Worksheet tabelaGraficos) {
         ChartData colunaSistema = new ChartData(workbook, tabelaBoletimOrigem, "Produto/Sistema");
         ChartData colunaStatus = new ChartData(workbook, tabelaBoletimOrigem, "Status");
@@ -67,25 +63,24 @@ public class BoletimGenerator {
         ChartFormatter.chartFormatter(graficoSistema, "Sistema");
         ChartFormatter.chartFormatter(graficoStatus, "Status");
     }
-
-    private void saveAndOpenWorkbook(Workbook workbook) {
+    private void saveWorkbookFile(Workbook workbook) {
         try {
             workbook.save("Boletim_out.xlsx", SaveFormat.XLSX);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "O arquivo 'Boletim_out.xlsx' está aberto em outro programa!", "Erro", JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException(e);
         }
+    }
+    private void openWorkbookFile(){
         try {
             java.awt.Desktop.getDesktop().open(new File("Boletim_out.xlsx"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
     private void filterBoletim(Workbook workbook, Worksheet tabelaBoletimOrigem, String seguradora) {
         String[] statusToRemove = {"Finalizado", "Solucionado", "Fechado"};
         String[] colunasToRemove = {"Data conclusão", "Hora conclusão", "Criticidade", "Crítico / Impactante"};
-
 
         BoletimData boletimData = new BoletimData(workbook, tabelaBoletimOrigem);
         boletimData.deleteRowByStatus("Status", statusToRemove);
