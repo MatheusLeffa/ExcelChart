@@ -36,13 +36,13 @@ public class BoletimGenerator {
         saveAndOpenWorkbook(workbook);
     }
 
-    private static LoadOptions setLoadOptions() {
+    private LoadOptions setLoadOptions() {
         LoadOptions loadOptions = new LoadOptions(LoadFormat.XLSX);
         loadOptions.setLoadFilter(new LoadFilter(LoadDataFilterOptions.CELL_DATA));
         return loadOptions;
     }
 
-    private static Workbook setWorkbook(String filePath, LoadOptions loadOptions) {
+    private Workbook setWorkbook(String filePath, LoadOptions loadOptions) {
         try {
             return new Workbook(filePath, loadOptions);
         } catch (Exception e) {
@@ -50,7 +50,7 @@ public class BoletimGenerator {
         }
     }
 
-    private static void chartCreator(Workbook workbook, Worksheet tabelaBoletimOrigem, Worksheet tabelaGraficos) {
+    private void chartCreator(Workbook workbook, Worksheet tabelaBoletimOrigem, Worksheet tabelaGraficos) {
         ChartData colunaSistema = new ChartData(workbook, tabelaBoletimOrigem, "Produto/Sistema");
         ChartData colunaStatus = new ChartData(workbook, tabelaBoletimOrigem, "Status");
 
@@ -68,7 +68,7 @@ public class BoletimGenerator {
         ChartFormatter.chartFormatter(graficoStatus, "Status");
     }
 
-    private static void saveAndOpenWorkbook(Workbook workbook) {
+    private void saveAndOpenWorkbook(Workbook workbook) {
         try {
             workbook.save("Boletim_out.xlsx", SaveFormat.XLSX);
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class BoletimGenerator {
         }
     }
 
-    private static void filterBoletim(Workbook workbook, Worksheet tabelaBoletimOrigem, String seguradora) {
+    private void filterBoletim(Workbook workbook, Worksheet tabelaBoletimOrigem, String seguradora) {
         String[] statusToRemove = {"Finalizado", "Solucionado", "Fechado"};
         String[] colunasToRemove = {"Data conclusão", "Hora conclusão", "Criticidade", "Crítico / Impactante"};
 
