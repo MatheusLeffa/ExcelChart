@@ -7,6 +7,7 @@ package org.chart.excel;
 import org.chart.excel.utils.FileSelector;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author matheus_hilbert
@@ -76,7 +77,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        txtCaminhoBoletim.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCaminhoBoletim.setFont(new java.awt.Font("Segoe UI", Font.PLAIN, 14)); // NOI18N
         txtCaminhoBoletim.setAutoscrolls(false);
         jScrollPane3.setViewportView(txtCaminhoBoletim);
 
