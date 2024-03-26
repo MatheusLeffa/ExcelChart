@@ -17,6 +17,7 @@ public class BoletimGenerator {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
+
     public void setSeguradora(String seguradora) {
         this.seguradora = seguradora;
     }
@@ -49,6 +50,11 @@ public class BoletimGenerator {
     private void chartCreator(Workbook workbook, Worksheet tabelaBoletimOrigem, Worksheet tabelaGraficos) {
         ChartData colunaSistema = new ChartData(workbook, tabelaBoletimOrigem, "Produto/Sistema");
         ChartData colunaStatus = new ChartData(workbook, tabelaBoletimOrigem, "Status");
+
+        if(colunaSistema.getDataSeries().size() == 0) {
+            JOptionPane.showMessageDialog(null, "Não possuem incidentes abertos para esta seguradora.", "Erro", JOptionPane.ERROR_MESSAGE);
+            throw new RuntimeException("Não possuem incidentes abertos para esta seguradora.");
+        }
 
         ChartEditor EditorTabelaGraficos = new ChartEditor(tabelaGraficos);
         EditorTabelaGraficos.addValues(colunaSistema.getDataSeries());
