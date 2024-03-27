@@ -1,13 +1,15 @@
 package org.chart.excel;
 
-import org.chart.excel.gui.FormPrincipal;
+import com.formdev.flatlaf.FlatDarculaLaf;
+import org.chart.excel.gui.MainMenu;
+
 
 public class Main {
-    public static void main(String... args){
 
-        //Form configuration
-        FormPrincipal.setUpLookAndFeel();
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormPrincipal().setVisible(true));
+    //Inícializa o Menu Principal da aplicação com o tema FlatDarculaLaf.
+    public static void main(String[] args) {
+        FlatDarculaLaf.setup();
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.setVisible(true);
     }
 }
