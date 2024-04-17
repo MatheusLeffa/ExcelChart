@@ -8,6 +8,7 @@ import org.chart.excel.BoletimGenerator;
 import org.chart.excel.utils.FileSelector;
 
 import javax.swing.*;
+import java.util.Objects;
 
 /**
  * @author Matheus Leffa Hilbert
@@ -17,8 +18,6 @@ public class MainMenu extends javax.swing.JFrame {
     private final BoletimGenerator boletimGenerator = new BoletimGenerator();
     private String filePath;
     private String seguradora;
-    private String produto;
-    private String status;
 
 
     public MainMenu() {
@@ -145,7 +144,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void cbxSeguradoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSeguradoraActionPerformed
-        seguradora = cbxSeguradora.getSelectedItem().toString();
+        seguradora = Objects.requireNonNull(cbxSeguradora.getSelectedItem()).toString();
     }//GEN-LAST:event_cbxSeguradoraActionPerformed
 
     private void btnAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvancarActionPerformed
