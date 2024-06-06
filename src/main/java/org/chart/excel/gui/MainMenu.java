@@ -158,7 +158,6 @@ public class MainMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAvancarActionPerformed
 
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         int confirmation = JOptionPane.showConfirmDialog(this, "Tem certeza que quer finalizar o programa?", "Quer sair?", JOptionPane.YES_NO_OPTION);
         if (confirmation == JOptionPane.YES_OPTION) {
